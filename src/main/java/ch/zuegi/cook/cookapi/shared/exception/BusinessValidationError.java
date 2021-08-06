@@ -6,4 +6,8 @@ public class BusinessValidationError {
     public static final String ZUTAT_EINHEIT_IST_ZWINGEND = "Die Einheit der Zutat ist zwingend";
     public static final String REZEPT_NAME_IST_ZWINGEND = "Der Name des Rezepts ist zwingend";
     public static final String ZUBEREITUNG_BESCHREIBUNG_IST_ZWINGEND = "Die Beschreibung der Zubereitung ist zwingend";
+    public static final String REZEPT_REZEPTID_IST_ZWINGEND = "Die RezeptId des Rezepts ist zwingend";
+    public static final String REZEPT_ANZAHL_PERSONEN_DARF_NICHT_0_SEIN = "Die Anzahl Personen darf nicht 0 sein";
+    public static final String REZEPTID_BEREITS_VERWENDET = "Die RezeptId wird bereits verwendet";
+    public static final String REPISOTRY_NICHT_DEFINIERT = "Das Rezept Repository ist nicht definiertz";
 }

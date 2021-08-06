@@ -5,6 +5,8 @@ import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationException;
 import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
+import static ch.zuegi.cook.cookapi.shared.Validations.validateNotNull;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -29,12 +31,8 @@ public class Zutat {
         if (StringUtils.isBlank(name)) {
             throw new BusinessValidationException(BusinessValidationError.ZUTAT_NAME_IST_ZWINGEND);
         }
-        if (menge == null) {
-            throw new BusinessValidationException(BusinessValidationError.ZUTAT_MENGE_IST_ZWINGEND);
-        }
-        if (einheit == null) {
-            throw new BusinessValidationException(BusinessValidationError.ZUTAT_EINHEIT_IST_ZWINGEND);
-        }
+        validateNotNull(menge, BusinessValidationError.ZUTAT_MENGE_IST_ZWINGEND);
+        validateNotNull(einheit, BusinessValidationError.ZUTAT_EINHEIT_IST_ZWINGEND);
 
     }
 }

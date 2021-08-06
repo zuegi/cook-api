@@ -2,15 +2,11 @@ package ch.zuegi.cook.cookapi.feature.rezept.domain;
 
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationError;
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.is;
 
 class ZutatTest {
 
