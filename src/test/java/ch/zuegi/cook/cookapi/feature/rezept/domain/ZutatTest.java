@@ -1,9 +1,13 @@
 package ch.zuegi.cook.cookapi.feature.rezept.domain;
 
+import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationError;
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,17 +26,23 @@ class ZutatTest {
 
     @Test
     void Zutat_erstelle_name_null_invalid() {
-        Assertions.assertThrows(BusinessValidationException.class, () -> { Zutat.erstelle(null, 50d, Einheit.GRAMM);});
+        assertThatExceptionOfType(BusinessValidationException.class)
+                .isThrownBy(() -> Zutat.erstelle(null, 50d, Einheit.GRAMM))
+                .withMessage(BusinessValidationError.ZUTAT_NAME_IST_ZWINGEND);
     }
 
     @Test
     void Zutat_erstelle_menge_null_invalid() {
-        Assertions.assertThrows(BusinessValidationException.class, () -> { Zutat.erstelle("Mehl", null, Einheit.GRAMM);});
+        assertThatExceptionOfType(BusinessValidationException.class)
+                .isThrownBy(() -> Zutat.erstelle("Mehl", null, Einheit.GRAMM))
+                .withMessage(BusinessValidationError.ZUTAT_MENGE_IST_ZWINGEND);
     }
 
     @Test
     void Zutat_erstelle_einheit_null_invalid() {
-        Assertions.assertThrows(BusinessValidationException.class, () -> { Zutat.erstelle("Mehl", 2d, null);});
+        assertThatExceptionOfType(BusinessValidationException.class)
+                .isThrownBy(() -> Zutat.erstelle("Mehl", 2d, null))
+                .withMessage(BusinessValidationError.ZUTAT_EINHEIT_IST_ZWINGEND);
     }
 
 }

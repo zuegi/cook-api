@@ -6,7 +6,6 @@ import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.Map;
 
 import static ch.zuegi.cook.cookapi.shared.utils.StreamUtil.getNullSafeStream;
 
@@ -39,5 +38,21 @@ public class Rezept {
 
     public void berechneMengenFuer(int anzahlPersonen) {
         getNullSafeStream(this.zutaten).forEach(zutat -> zutat.berechneMenge(anzahlPersonen));
+    }
+
+    public void ergaenzeZubereitung(int index, String beschreibung) {
+        this.getZubereitung().ergaenze(index,beschreibung);
+    }
+
+    public void entferneZubereitung(int index) {
+        this.getZubereitung().entferne(index);
+    }
+
+    public void ergaenzeZutat(int index, Zutat zucker) {
+        this.getZutaten().add(index, zucker);
+    }
+
+    public void entferneZutat(int index) {
+        this.getZutaten().remove(index);
     }
 }

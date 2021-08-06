@@ -2,15 +2,15 @@ package ch.zuegi.cook.cookapi.feature.rezept.domain;
 
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationError;
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationException;
-import lombok.*;
-import org.apache.commons.lang3.StringUtils;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
-import java.util.Map;
 
 @ToString
 @EqualsAndHashCode
-@Setter
+@Getter
 public class Zubereitung {
 
     List<String> beschreibungen;
@@ -26,5 +26,13 @@ public class Zubereitung {
         if (this.beschreibungen.isEmpty()) {
             throw new BusinessValidationException(BusinessValidationError.ZUBEREITUNG_BESCHREIBUNG_IST_ZWINGEND);
         }
+    }
+
+    public void ergaenze(int index, String beschreibung) {
+        beschreibungen.add(index, beschreibung);
+    }
+
+    public void entferne(int index) {
+        beschreibungen.remove(index);
     }
 }
