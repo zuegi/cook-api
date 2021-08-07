@@ -9,19 +9,14 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class ZutatTestHelper {
 
-    public final static Zutat BUTTER = Zutat.erstelle("Butter", 25.0d, Einheit.GRAMM);
-    public final static Zutat PUDERZUCKER = Zutat.erstelle("Puderzucker", 250.0d, Einheit.GRAMM);
-    public final static Zutat MEHL = Zutat.erstelle("Mehl", 50.0d, Einheit.GRAMM);
-    public final static Zutat EIER = Zutat.erstelle("Eier", 1d, Einheit.STUECK);
-    public final static Zutat VANILLEZUCKER = Zutat.erstelle("Vanillezucker", 4d, Einheit.GRAMM);
-    public final static Zutat BACKPULVER = Zutat.erstelle("Backpulver", 4d, Einheit.TEELOEFFEL);
-    public final static Zutat MILCH = Zutat.erstelle("Milch", 50d, Einheit.MILLILITER);
-    public final static Zutat ZITRONE = Zutat.erstelle("Zitrone", 1d, Einheit.SPRITZER);
-     public final static Zutat SALZ = Zutat.erstelle("Salz", 0.5d, Einheit.TEELOEFFEL);
-     public final static Zutat WASSER = Zutat.erstelle("Wasser", 50d, Einheit.MILLILITER);
-
     public static List<Zutat> createZutatenListeFuerOmeletten() {
-        return new ArrayList<>(Arrays.asList(MEHL, EIER, SALZ, WASSER, MILCH));
+        return new ArrayList<>(Arrays.asList(
+                Zutat.erstelle("Mehl", 50d, Einheit.GRAMM),
+                Zutat.erstelle("Eier", 1d, Einheit.STUECK),
+                Zutat.erstelle("Salz", 0.5d, Einheit.TEELOEFFEL),
+                Zutat.erstelle("Wasser", 50d, Einheit.MILLILITER),
+                Zutat.erstelle("Milch", 50d, Einheit.MILLILITER)
+        ));
     }
 
     public static void assertOmeletten(Rezept rezept, int anzahlPersonen) {
