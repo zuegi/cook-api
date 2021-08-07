@@ -9,6 +9,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class ZutatTestHelper {
 
+    public static Zutat erstelleZutat(String name, Double menge,Einheit einheit) {
+        return Zutat.erstelle(name, menge, einheit);
+    }
+
     public static List<Zutat> createZutatenListeFuerOmeletten() {
         return new ArrayList<>(Arrays.asList(
                 Zutat.erstelle("Mehl", 50d, Einheit.GRAMM),

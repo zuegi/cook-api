@@ -6,6 +6,8 @@ import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 import static ch.zuegi.cook.cookapi.shared.Validations.validateNotNull;
 import static ch.zuegi.cook.cookapi.shared.Validations.validateNull;
@@ -50,6 +52,10 @@ public class Rezept {
         repository.persist(this);
     }
 
+    public void aendereName(String name) {
+        this.name = name;
+        this.validiere();
+    }
 
     public void validiere() {
         if (StringUtils.isBlank(this.name)) {
@@ -84,5 +90,36 @@ public class Rezept {
 
     public void entferne() {
         this.getRepository().remove(this);
+    }
+
+
+    public void aendereZutatName(int i, String name) {
+        validateNotNull(getZutaten().get(i), BusinessValidationError.ZUTAT_INDEX_EXISTIERT_NICHT);
+        this.getZutaten().get(i).aendereName(name);
+    }
+
+    public void aendereZutatMenge(int i, double menge) {
+        validateNotNull(getZutaten().get(i), BusinessValidationError.ZUTAT_INDEX_EXISTIERT_NICHT);
+        this.getZutaten().get(i).aendereMenge(menge);
+    }
+
+    public void aendereZutatEinheit(int i, Einheit einheit) {
+        validateNotNull(getZutaten().get(i), BusinessValidationError.ZUTAT_INDEX_EXISTIERT_NICHT);
+        this.getZutaten().get(i).aendereEinheit(einheit);
+    }
+
+    public void aendereZutatPosition(int newIndex, Zutat zutat) {
+        if (newIndex > this.getZutaten().size()) {
+            throw new BusinessValidationException(BusinessValidationError.ZUTAT_INDEX_EXISTIERT_NICHT);
+        }
+
+        OptionalInt indexOpt = IntStream.range(0, this.getZutaten().size())
+                .filter(index-> zutat.equals(this.getZutaten().get(index)))
+                .findFirst();
+
+        if (indexOpt.isPresent()) {
+            this.getZutaten().remove(indexOpt.getAsInt());
+            this.getZutaten().add(newIndex, zutat);
+        }
     }
 }

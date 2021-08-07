@@ -13,8 +13,8 @@ public class RezeptApplicationService {
 
     RezeptRepositoryImpl repository;
 
-    public void speichereRezept(ErstelleRezept createRezept) {
-        Rezept.erstelle(repository, createRezept.getRezeptId(), createRezept.getName(), createRezept.getZutaten(), createRezept.getZubereitung());
+    public void erstelleRezept(ErstelleRezept erstelleRezpet) {
+        Rezept.erstelle(repository, erstelleRezpet.getRezeptId(), erstelleRezpet.getName(), erstelleRezpet.getZutaten(), erstelleRezpet.getZubereitung());
     }
 
     public Rezept findByRezeptId(RezeptId rezeptId) {

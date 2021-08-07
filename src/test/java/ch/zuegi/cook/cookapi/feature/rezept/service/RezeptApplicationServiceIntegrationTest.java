@@ -25,7 +25,7 @@ class RezeptApplicationServiceIntegrationTest extends AbstractIntegrationTest {
         RezeptId rezeptId = RezeptId.generate();
         String omeletten = "Omeletten";
         ErstelleRezept erstelleRezept = new ErstelleRezept(rezeptId, omeletten, createZutatenListeFuerOmeletten(), createZubereitungOmelette());
-        service.speichereRezept(erstelleRezept);
+        service.erstelleRezept(erstelleRezept);
 
         Rezept rezept = service.findByRezeptId(rezeptId);
 

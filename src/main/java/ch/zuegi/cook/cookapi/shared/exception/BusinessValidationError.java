@@ -10,4 +10,5 @@ public class BusinessValidationError {
     public static final String REZEPT_ANZAHL_PERSONEN_DARF_NICHT_0_SEIN = "Die Anzahl Personen darf nicht 0 sein";
     public static final String REZEPTID_BEREITS_VERWENDET = "Die RezeptId wird bereits verwendet";
     public static final String REPISOTRY_NICHT_DEFINIERT = "Das Rezept Repository ist nicht definiertz";
+    public static final String ZUTAT_INDEX_EXISTIERT_NICHT = "Der Index in der Zutatenliste existiert nicht";
 }
