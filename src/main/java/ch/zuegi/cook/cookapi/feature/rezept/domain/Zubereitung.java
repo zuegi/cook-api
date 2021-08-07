@@ -13,9 +13,9 @@ import java.util.List;
 @Getter
 public class Zubereitung {
 
-    List<String> beschreibungen;
+    List<ZubereitungsSchritt> beschreibungen;
 
-    public static Zubereitung erstelle(List<String> beschreibungen) {
+    public static Zubereitung erstelle(List<ZubereitungsSchritt> beschreibungen) {
         Zubereitung zubereitung = new Zubereitung();
         zubereitung.beschreibungen = beschreibungen;
         zubereitung.validiere();
@@ -28,7 +28,7 @@ public class Zubereitung {
         }
     }
 
-    public void ergaenze(int index, String beschreibung) {
+    public void ergaenze(int index, ZubereitungsSchritt beschreibung) {
         beschreibungen.add(index, beschreibung);
     }
 

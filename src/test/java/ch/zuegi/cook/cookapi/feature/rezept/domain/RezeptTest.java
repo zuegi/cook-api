@@ -146,6 +146,28 @@ class RezeptTest {
     }
 
     @Test
+    void rezept_update_zutat_valid() {
+        List<Zutat> zutatenListeFuerOmeletten = createZutatenListeFuerOmeletten();
+        Zubereitung zubereitung = createZubereitungOmelette();
+        String omeletten = "Omeletten";
+        RezeptId rezeptId = RezeptId.generate();
+        Rezept rezept = Rezept.erstelle(repository, rezeptId, omeletten, zutatenListeFuerOmeletten, zubereitung);
+        verify(rezept.getRepository()).add(rezept);
+
+        Zutat zutat = rezept.getZutaten().get(2);
+        zutat.aendereName("Meersalz");
+        zutat.aendereMenge(1d);
+        zutat.aendereEinheit(Einheit.PRISE);
+
+        rezept.update(repository);
+        verify(rezept.getRepository()).persist(rezept);
+
+        assertThat(rezept.getZutaten().get(2).getName(), is("Meersalz"));
+        assertThat(rezept.getZutaten().get(2).getMenge(), is(1d));
+        assertThat(rezept.getZutaten().get(2).getEinheit(), is(Einheit.PRISE));
+    }
+
+    @Test
     void Rezept_ergaenze_zubereitung_valid() {
         List<Zutat> zutatenListeFuerOmeletten = createZutatenListeFuerOmeletten();
         Zubereitung zubereitung = createZubereitungOmelette();
@@ -155,7 +177,7 @@ class RezeptTest {
         verify(rezept.getRepository()).add(rezept);
 
         int index = 2;
-        String beschreibung = "Mach es mit Liebe";
+        ZubereitungsSchritt beschreibung = new ZubereitungsSchritt("Mach es mit Liebe");
         rezept.ergaenzeZubereitung(index, beschreibung);
 
         assertZubereitungMitLiebe(rezept);
@@ -173,7 +195,7 @@ class RezeptTest {
         verify(rezept.getRepository()).add(rezept);
 
         int index = 2;
-        String beschreibung = "Mach es mit Liebe";
+        ZubereitungsSchritt beschreibung = new ZubereitungsSchritt("Mach es mit Liebe");
         rezept.ergaenzeZubereitung(index, beschreibung);
 
         assertZubereitungMitLiebe(rezept);
@@ -181,6 +203,24 @@ class RezeptTest {
 
         rezept.entferneZubereitung(index);
         assertZubereitung(rezept);
+    }
+
+    @Test
+    void rezept_update_zubereitung_valid() {
+        List<Zutat> zutatenListeFuerOmeletten = createZutatenListeFuerOmeletten();
+        Zubereitung zubereitung = createZubereitungOmelette();
+        String omeletten = "Omeletten";
+        RezeptId rezeptId = RezeptId.generate();
+        Rezept rezept = Rezept.erstelle(repository, rezeptId, omeletten, zutatenListeFuerOmeletten, zubereitung);
+        verify(rezept.getRepository()).add(rezept);
+        String machEsMitLiebe = "Mach es mit Liebe";
+        ZubereitungsSchritt schritt = rezept.getZubereitung().getBeschreibungen().get(2);
+        schritt.aendereZubereitungsSchritt(machEsMitLiebe);
+
+        rezept.update(repository);
+        verify(rezept.getRepository()).persist(rezept);
+
+        assertThat(rezept.getZubereitung().getBeschreibungen().get(2).getZubereitungsSchritt(), is(machEsMitLiebe));
     }
 
     @Test

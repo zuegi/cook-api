@@ -38,12 +38,16 @@ public class Rezept {
         rezept.zubereitung = zubereitung;
         rezept.validiere();
         // speichere das Rezept
-        rezept.save();
+        rezept.speichere();
         return rezept;
     }
 
-    private void save() {
+    private void speichere() {
         this.repository.add(this);
+    }
+
+    public void update(RezeptRepository repository) {
+        repository.persist(this);
     }
 
 
@@ -62,7 +66,7 @@ public class Rezept {
         getNullSafeStream(this.zutaten).forEach(zutat -> zutat.berechneMenge(anzahlPersonen));
     }
 
-    public void ergaenzeZubereitung(int index, String beschreibung) {
+    public void ergaenzeZubereitung(int index, ZubereitungsSchritt beschreibung) {
         this.getZubereitung().ergaenze(index,beschreibung);
     }
 

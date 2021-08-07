@@ -27,6 +27,21 @@ public class Zutat {
         this.menge = this.menge * anzahlPersonen;
     }
 
+    public void aendereName(String name) {
+        this.name = name;
+        this.validiere();
+    }
+
+    public void aendereMenge(Double menge) {
+        this.menge = menge;
+        this.validiere();
+    }
+
+    public void aendereEinheit(Einheit einheit) {
+        this.einheit = einheit;
+        this.validiere();
+    }
+
     public void validiere() {
         if (StringUtils.isBlank(name)) {
             throw new BusinessValidationException(BusinessValidationError.ZUTAT_NAME_IST_ZWINGEND);
