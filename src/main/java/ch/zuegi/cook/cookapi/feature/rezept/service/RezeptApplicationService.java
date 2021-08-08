@@ -7,6 +7,8 @@ import ch.zuegi.cook.cookapi.feature.rezept.infra.rest.ErstelleRezept;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class RezeptApplicationService {
@@ -18,6 +20,12 @@ public class RezeptApplicationService {
     }
 
     public Rezept findByRezeptId(RezeptId rezeptId) {
-        return Rezept.findeMitRezeptId(repository, rezeptId);
+        Rezept rezept = Rezept.findeMitRezeptId(repository, rezeptId);
+        assert rezept.getRepository().equals(repository);
+        return rezept;
+    }
+
+    public List<Rezept> findeAlle() {
+        return Rezept.findeAlleRezepte(repository);
     }
 }

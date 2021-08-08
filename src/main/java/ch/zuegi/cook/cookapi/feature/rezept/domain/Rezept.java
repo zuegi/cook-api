@@ -56,12 +56,21 @@ public class Rezept {
     public static Rezept findeMitRezeptId(RezeptRepository repository, RezeptId rezeptId) {
         validateNotNull(rezeptId, BusinessValidationError.REZEPT_REZEPTID_IST_ZWINGEND);
         validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
-        return repository.findById(rezeptId);
+        Rezept rezept = repository.findById(rezeptId);
+        rezept.ergaenzeRepository(repository);
+        return rezept;
+    }
+
+    void ergaenzeRepository(RezeptRepository repository) {
+        validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
+        this.repository = repository;
     }
 
     public static List<Rezept> findeAlleRezepte(RezeptRepository repository) {
         validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
-        return repository.findAll();
+        List<Rezept> all = repository.findAll();
+        all.forEach(rezept -> rezept.ergaenzeRepository(repository));
+        return all;
     }
 
 
