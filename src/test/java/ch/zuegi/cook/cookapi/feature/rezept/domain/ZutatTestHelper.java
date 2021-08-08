@@ -9,36 +9,43 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 public class ZutatTestHelper {
 
-    public static Zutat erstelleZutat(String name, Double menge,Einheit einheit) {
-        return Zutat.erstelle(name, menge, einheit);
+    public static final ZutatId ZUTATID_MEHL = ZutatId.generate();
+    public static final ZutatId ZUTATID_EIER = ZutatId.generate();
+    public static final ZutatId ZUTATID_SALZ = ZutatId.generate();
+    public static final ZutatId ZUTATID_WASSER = ZutatId.generate();
+    public static final ZutatId ZUTATID_MILCH = ZutatId.generate();
+    public static final ZutatId ZUTATID_ZUCKER = ZutatId.generate();
+
+    public static Zutat erstelleZutat(ZutatId zutatId, String name, Double menge,Einheit einheit) {
+        return Zutat.erstelle(zutatId, name, menge, einheit);
     }
 
     public static List<Zutat> createZutatenListeFuerOmeletten() {
         return new ArrayList<>(Arrays.asList(
-                Zutat.erstelle("Mehl", 50d, Einheit.GRAMM),
-                Zutat.erstelle("Eier", 1d, Einheit.STUECK),
-                Zutat.erstelle("Salz", 0.5d, Einheit.TEELOEFFEL),
-                Zutat.erstelle("Wasser", 50d, Einheit.MILLILITER),
-                Zutat.erstelle("Milch", 50d, Einheit.MILLILITER)
+                Zutat.erstelle(ZUTATID_MEHL, "Mehl", 50d, Einheit.GRAMM),
+                Zutat.erstelle(ZUTATID_EIER, "Eier", 1d, Einheit.STUECK),
+                Zutat.erstelle(ZUTATID_SALZ, "Salz", 0.5d, Einheit.TEELOEFFEL),
+                Zutat.erstelle(ZUTATID_WASSER, "Wasser", 50d, Einheit.MILLILITER),
+                Zutat.erstelle(ZUTATID_MILCH, "Milch", 50d, Einheit.MILLILITER)
         ));
     }
 
     public static void assertOmeletten(Rezept rezept, int anzahlPersonen) {
         assertThat(rezept.getZutaten(), containsInAnyOrder(
-                Zutat.erstelle("Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
-                Zutat.erstelle("Eier", anzahlPersonen * 1d, Einheit.STUECK),
-                Zutat.erstelle("Salz", anzahlPersonen * 0.5d, Einheit.TEELOEFFEL),
-                Zutat.erstelle("Wasser", anzahlPersonen * 50d, Einheit.MILLILITER),
-                Zutat.erstelle("Milch", anzahlPersonen * 50d, Einheit.MILLILITER)));
+                Zutat.erstelle(ZUTATID_MEHL, "Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
+                Zutat.erstelle(ZUTATID_EIER, "Eier", anzahlPersonen * 1d, Einheit.STUECK),
+                Zutat.erstelle(ZUTATID_SALZ, "Salz", anzahlPersonen * 0.5d, Einheit.TEELOEFFEL),
+                Zutat.erstelle(ZUTATID_WASSER, "Wasser", anzahlPersonen * 50d, Einheit.MILLILITER),
+                Zutat.erstelle(ZUTATID_MILCH,"Milch", anzahlPersonen * 50d, Einheit.MILLILITER)));
     }
 
     public static void assertOmelettenMitZucker(Rezept rezept, int anzahlPersonen) {
         assertThat(rezept.getZutaten(), containsInAnyOrder(
-                Zutat.erstelle("Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
-                Zutat.erstelle("Eier", anzahlPersonen * 1d, Einheit.STUECK),
-                Zutat.erstelle("Zucker", 1d, Einheit.PRISE),
-                Zutat.erstelle("Salz", anzahlPersonen * 0.5d, Einheit.TEELOEFFEL),
-                Zutat.erstelle("Wasser", anzahlPersonen * 50d, Einheit.MILLILITER),
-                Zutat.erstelle("Milch", anzahlPersonen * 50d, Einheit.MILLILITER)));
+                Zutat.erstelle(ZUTATID_MEHL, "Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
+                Zutat.erstelle(ZUTATID_EIER,"Eier", anzahlPersonen * 1d, Einheit.STUECK),
+                Zutat.erstelle(ZUTATID_ZUCKER, "Zucker", 1d, Einheit.PRISE),
+                Zutat.erstelle(ZUTATID_SALZ,"Salz", anzahlPersonen * 0.5d, Einheit.TEELOEFFEL),
+                Zutat.erstelle(ZUTATID_WASSER,"Wasser", anzahlPersonen * 50d, Einheit.MILLILITER),
+                Zutat.erstelle(ZUTATID_MILCH,"Milch", anzahlPersonen * 50d, Einheit.MILLILITER)));
     }
 }

@@ -18,6 +18,6 @@ public class RezeptApplicationService {
     }
 
     public Rezept findByRezeptId(RezeptId rezeptId) {
-        return repository.findById(rezeptId);
+        return Rezept.findeMitRezeptId(repository, rezeptId);
     }
 }

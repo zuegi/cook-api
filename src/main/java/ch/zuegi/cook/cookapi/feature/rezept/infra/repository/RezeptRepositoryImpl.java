@@ -7,6 +7,8 @@ import ch.zuegi.cook.cookapi.shared.persistence.Persistence;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Repository
 public class RezeptRepositoryImpl implements RezeptRepository {
@@ -36,5 +38,10 @@ public class RezeptRepositoryImpl implements RezeptRepository {
     public void remove(Rezept rezept) {
         persistence.dataRoot().getRezeptList().remove(rezept);
         persistence.store(persistence.dataRoot().getRezeptList());
+    }
+
+    @Override
+    public List<Rezept> findAll() {
+        return persistence.dataRoot().getRezeptList();
     }
 }

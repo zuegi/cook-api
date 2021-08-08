@@ -11,4 +11,6 @@ public class BusinessValidationError {
     public static final String REZEPTID_BEREITS_VERWENDET = "Die RezeptId wird bereits verwendet";
     public static final String REPISOTRY_NICHT_DEFINIERT = "Das Rezept Repository ist nicht definiertz";
     public static final String ZUTAT_INDEX_EXISTIERT_NICHT = "Der Index in der Zutatenliste existiert nicht";
+    public static final String ZUTAT_ZUTATID_IST_ZWINGEND = "Die ZutatId ist zwingend";
+    public static final String ZUTAT_MIT_ZUTATID_NICHT_GEFUNDEN = "Zutat mit ZutatId nicht gefunden";
 }

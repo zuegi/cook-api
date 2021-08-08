@@ -13,12 +13,14 @@ import static ch.zuegi.cook.cookapi.shared.Validations.validateNotNull;
 @ToString
 @EqualsAndHashCode
 public class Zutat {
+    ZutatId zutatId;
     String name;
     Double menge;
     Einheit einheit;
 
-    public static Zutat erstelle(String name, Double menge, Einheit einheit) {
-        Zutat zutat = new Zutat(name, menge, einheit);
+    public static Zutat erstelle(ZutatId zutatId, String name, Double menge, Einheit einheit) {
+        validateNotNull(zutatId, BusinessValidationError.ZUTAT_ZUTATID_IST_ZWINGEND);
+        Zutat zutat = new Zutat(zutatId, name, menge, einheit);
         zutat.validiere();
         return zutat;
     }
