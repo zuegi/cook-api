@@ -1,0 +1,8 @@
+
+app:
+    microstream:
+        rest-service-enabled: true
+        rest-service-port: 4567
+        rest-service-instance-name: microstream
+        store-location: ./file-store
+
