@@ -1,0 +1,11 @@
+POST localhost:8080/api/rezept/refactor
+Content-Type: application/json; charset=utf-8
+Accept: application/json
+Cache-Control: no-cache
+
+{
+  "vorName": "Max",
+  "nachName": "Kruse"
+}
+
+###

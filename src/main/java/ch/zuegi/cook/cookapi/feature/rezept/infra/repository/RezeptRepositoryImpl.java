@@ -1,5 +1,6 @@
 package ch.zuegi.cook.cookapi.feature.rezept.infra.repository;
 
+import ch.zuegi.cook.cookapi.MeineRefactoringKlasse;
 import ch.zuegi.cook.cookapi.feature.rezept.domain.Rezept;
 import ch.zuegi.cook.cookapi.feature.rezept.domain.RezeptId;
 import ch.zuegi.cook.cookapi.feature.rezept.domain.RezeptRepository;
@@ -43,5 +44,10 @@ public class RezeptRepositoryImpl implements RezeptRepository {
     @Override
     public List<Rezept> findAll() {
         return persistence.dataRoot().getRezeptList();
+    }
+
+    public void add(MeineRefactoringKlasse meineRefactoringKlasse) {
+         persistence.dataRoot().getRefactoringKlasseList().add(meineRefactoringKlasse);
+        persistence.store(persistence.dataRoot().getRefactoringKlasseList());
     }
 }

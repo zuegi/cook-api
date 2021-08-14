@@ -1,5 +1,6 @@
 package ch.zuegi.cook.cookapi.feature.rezept.service;
 
+import ch.zuegi.cook.cookapi.MeineRefactoringKlasse;
 import ch.zuegi.cook.cookapi.feature.rezept.domain.Rezept;
 import ch.zuegi.cook.cookapi.feature.rezept.domain.RezeptId;
 import ch.zuegi.cook.cookapi.feature.rezept.infra.repository.RezeptRepositoryImpl;
@@ -27,5 +28,9 @@ public class RezeptApplicationService {
 
     public List<Rezept> findeAlle() {
         return Rezept.findeAlleRezepte(repository);
+    }
+
+    public void erstelle(MeineRefactoringKlasse meineRefactoringKlasse) {
+        repository.add(meineRefactoringKlasse);
     }
 }
