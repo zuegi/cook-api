@@ -39,7 +39,7 @@ class RezeptTest {
     }
 
     @Test
-    void Rezept_erstelle_valid() {
+    void rezept_erstelle_valid() {
         // given
         int anzahlPersonen = 1;
         List<Zutat> zutatenListeFuerOmeletten = createZutatenListeFuerOmeletten();
@@ -50,7 +50,7 @@ class RezeptTest {
         Rezept rezept = Rezept.erstelle(repository, rezeptId, rezeptName, zutatenListeFuerOmeletten, zubereitung);
         // then
         verify(rezept.getRepository(), times(1)).findById(rezeptId);
-        verify(rezept.getRepository(), times(1)).add(rezept);
+        verify(rezept.getRepository(), times(1)).persist(rezept);
         assertThat(rezept.getName(), is(rezeptName));
         assertThat(rezept.getRezeptId(), is(rezeptId));
         assertThat(rezept.zutaten, hasSize(zutatenListeFuerOmeletten.size()));
@@ -80,7 +80,7 @@ class RezeptTest {
         // then
         // then
         verify(rezept.getRepository(), times(1)).findById(rezeptId);
-        verify(rezept.getRepository(), times(1)).add(rezept);
+        verify(rezept.getRepository(), times(1)).persist(rezept);
         assertThat(rezept.getName(), is(rezeptName));
         assertThat(rezept.getRezeptId(), is(rezeptId));
         assertThat(rezept.zutaten, hasSize(zutatenListeFuerOmeletten.size()));
@@ -89,7 +89,7 @@ class RezeptTest {
 
         String neuerRezeptName = "Amelette (Thurgau)";
         rezept.aendereName(neuerRezeptName);
-        verify(rezept.getRepository()).persist(rezept);
+        verify(rezept.getRepository(), times(2)).persist(rezept);
 
         assertThat(rezept.getName(), is(neuerRezeptName));
     }
@@ -136,7 +136,7 @@ class RezeptTest {
         // whene
         rezept.ergaenzeZutat(index, zucker);
         // then
-        verify(rezept.getRepository()).persist(rezept);
+        verify(rezept.getRepository(), times(2)).persist(rezept);
         assertOmelettenMitZucker(rezept, 1);
 
     }
@@ -153,7 +153,7 @@ class RezeptTest {
         // when
         rezept.entferneZutat(index);
         // then
-        verify(rezept.getRepository(), times(2)).persist(rezept);
+        verify(rezept.getRepository(), times(3)).persist(rezept);
         assertOmeletten(rezept, 1);
     }
 
@@ -168,7 +168,7 @@ class RezeptTest {
         rezept.aendereZutatEinheit(ZUTATID_SALZ, Einheit.PRISE);
 
         // then
-        verify(rezept.getRepository(), times(3)).persist(rezept);
+        verify(rezept.getRepository(), times(4)).persist(rezept);
         assertThat(rezept.getZutaten().get(2).getName(), is("Meersalz"));
         assertThat(rezept.getZutaten().get(2).getMenge(), is(1d));
         assertThat(rezept.getZutaten().get(2).getEinheit(), is(Einheit.PRISE));
@@ -184,7 +184,7 @@ class RezeptTest {
         // when
         rezept.aendereZutatPosition(4, ZUTATID_SALZ);
         // then
-        verify(rezept.getRepository()).persist(rezept);
+        verify(rezept.getRepository(), times(2)).persist(rezept);
         assertThat(rezept.getZutaten(), contains(
                 Zutat.erstelle(ZUTATID_MEHL, "Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
                 Zutat.erstelle(ZUTATID_EIER, "Eier", anzahlPersonen * 1d, Einheit.STUECK),
@@ -204,7 +204,7 @@ class RezeptTest {
         // when
         rezept.aendereZutatPosition(4, ZUTATID_SALZ);
         // then
-        verify(rezept.getRepository()).persist(rezept);
+        verify(rezept.getRepository(), times(2)).persist(rezept);
         assertThat(rezept.getZutaten(), not(contains(
                 Zutat.erstelle(ZUTATID_SALZ, "Salz", anzahlPersonen * 0.5d, Einheit.TEELOEFFEL),
                 Zutat.erstelle(ZUTATID_MEHL, "Mehl", anzahlPersonen * 50d, Einheit.GRAMM),
@@ -222,7 +222,7 @@ class RezeptTest {
         rezept.aendereZutatPosition(0, ZUTATID_SALZ);
         rezept.aendereZutatPosition(4, ZUTATID_MEHL);
 
-        verify(rezept.getRepository(), times(2)).persist(rezept);
+        verify(rezept.getRepository(), times(3)).persist(rezept);
         assertThat(rezept.getZutaten(), contains(
                 Zutat.erstelle(ZUTATID_SALZ, "Salz", 0.5d, Einheit.TEELOEFFEL),
                 Zutat.erstelle(ZUTATID_EIER, "Eier", 1d, Einheit.STUECK),
@@ -251,7 +251,7 @@ class RezeptTest {
         Rezept rezept = Rezept.erstelle(repository, rezeptId, omeletten, zutatenListeFuerOmeletten, zubereitung);
         // then
         verify(rezept.getRepository(), times(1)).findById(rezeptId);
-        verify(rezept.getRepository(), times(1)).add(rezept);
+        verify(rezept.getRepository(), times(1)).persist(rezept);
         return rezept;
     }
 

@@ -24,15 +24,11 @@ public class RezeptRepositoryImpl implements RezeptRepository {
                 .orElse(null);
     }
 
-    @Override
-    public void add(Rezept rezept) {
-        persistence.dataRoot().getRezeptList().add(rezept);
-        persistence.store(persistence.dataRoot().getRezeptList());
-    }
 
     @Override
     public void persist(Rezept rezept) {
-        persistence.store(rezept);
+        persistence.dataRoot().getRezeptList().add(rezept);
+        persistence.store(persistence.dataRoot().getRezeptList());
     }
 
     @Override

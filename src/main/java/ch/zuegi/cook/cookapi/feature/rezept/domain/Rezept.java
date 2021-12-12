@@ -29,22 +29,15 @@ public class Rezept {
         validateNotNull(rezeptId, BusinessValidationError.REZEPT_REZEPTID_IST_ZWINGEND);
         validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
         validateNull(repository.findById(rezeptId), BusinessValidationError.REZEPTID_BEREITS_VERWENDET);
-
         Rezept rezept = new Rezept();
         rezept.repository = repository;
         rezept.rezeptId = rezeptId;
         rezept.name = name;
         rezept.zutaten = zutaten;
         rezept.zubereitung = zubereitung;
-        rezept.validiere();
         // speichere das Rezept
-        rezept.erstelle();
+        rezept.speichere();
         return rezept;
-    }
-
-    private void erstelle() {
-        this.validiere();
-        repository.add(this);
     }
 
     private void speichere() {
@@ -96,6 +89,7 @@ public class Rezept {
             throw new BusinessValidationException(BusinessValidationError.REZEPT_ANZAHL_PERSONEN_DARF_NICHT_0_SEIN);
         }
         getNullSafeStream(this.zutaten).forEach(zutat -> zutat.berechneMenge(anzahlPersonen));
+        this.validiere();
     }
 
     public void ergaenzeZubereitung(int index, ZubereitungsSchritt beschreibung) {
