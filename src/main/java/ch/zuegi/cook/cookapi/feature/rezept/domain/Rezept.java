@@ -25,7 +25,6 @@ public class Rezept {
     List<Zutat> zutaten;
     Zubereitung zubereitung;
 
-    // repository hier einbinden und zuerst abfragen ob es diese Rezept id bereits gibt??????
     public static Rezept erstelle(RezeptRepository repository, RezeptId rezeptId, String name, List<Zutat> zutaten, Zubereitung zubereitung) {
         validateNotNull(rezeptId, BusinessValidationError.REZEPT_REZEPTID_IST_ZWINGEND);
         validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
@@ -44,12 +43,12 @@ public class Rezept {
     }
 
     private void erstelle() {
-        validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
+        this.validiere();
         repository.add(this);
     }
 
     private void speichere() {
-        validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
+        this.validiere();
         repository.persist(this);
     }
 
@@ -62,8 +61,8 @@ public class Rezept {
     }
 
     void ergaenzeRepository(RezeptRepository repository) {
-        validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
         this.repository = repository;
+        this.validiere();
     }
 
     public static List<Rezept> findeAlleRezepte(RezeptRepository repository) {
@@ -83,6 +82,7 @@ public class Rezept {
         if (StringUtils.isBlank(this.name)) {
             throw new BusinessValidationException(BusinessValidationError.REZEPT_NAME_IST_ZWINGEND);
         }
+        validateNotNull(repository, BusinessValidationError.REPISOTRY_NICHT_DEFINIERT);
         getNullSafeStream(this.zutaten).forEach(Zutat::validiere);
         this.getZubereitung().validiere();
     }
