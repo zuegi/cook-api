@@ -159,4 +159,9 @@ public class Rezept {
                 new BusinessValidationException(BusinessValidationError.ZUTAT_MIT_ZUTATID_NICHT_GEFUNDEN)
         );
     }
+
+    public PlayBook erstellePlayBook() {
+        return PlayBook.erstelle(this);
+    }
+
 }

@@ -2,8 +2,8 @@ package ch.zuegi.cook.cookapi.feature.rezept.domain;
 
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationError;
 import ch.zuegi.cook.cookapi.shared.exception.BusinessValidationException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -240,8 +240,8 @@ class RezeptTest {
         assertThatExceptionOfType(BusinessValidationException.class)
                 .isThrownBy(() -> rezept.aendereZutatPosition(16, ZUTATID_SALZ))
                 .withMessage(BusinessValidationError.ZUTAT_INDEX_EXISTIERT_NICHT);
-        ;
     }
+
 
     private Rezept erstelleOmelettenRezept() {
         List<Zutat> zutatenListeFuerOmeletten = createZutatenListeFuerOmeletten();
@@ -283,7 +283,7 @@ class RezeptTest {
         assertZubereitung(rezept);
     }
 
-    @Disabled("Test mit Zubereitungen müssen gefixed werden")
+
     @Test
     void rezept_update_zubereitung_valid() {
         Rezept rezept = erstelleOmelettenRezept();
@@ -304,4 +304,18 @@ class RezeptTest {
         verify(rezept.getRepository()).remove(rezept);
     }
 
+
+    @Test
+    void rezept_playbook_valid() {
+        Rezept rezept = erstelleOmelettenRezept();
+        PlayBook playbook = rezept.erstellePlayBook();
+        ZubereitungsSchritt first = playbook.next();
+
+        Assertions.assertThat(first).extracting(ZubereitungsSchritt::getZubereitungsSchritt).isEqualTo(MEHL_SALZ_EIER_MILCH_UND_WASSER_IN_EINER_SCHÜSSEL_VERMISCHEN);
+        ZubereitungsSchritt second = playbook.next();
+        Assertions.assertThat(second).extracting(ZubereitungsSchritt::getZubereitungsSchritt).isEqualTo(BEI_ZIMMERTEMPERATUR_30_MIN_RUHEN_LASSEN);
+        ZubereitungsSchritt previous = playbook.previous();
+        Assertions.assertThat(previous).isEqualTo(first);
+
+    }
 }
